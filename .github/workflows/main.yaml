@@ -47,13 +47,15 @@ jobs:
 
       - name: Upload jlink
         uses: actions/upload-artifact@v3
+        if: ${{ success() }}
         with:
           retention-days: 1
           name: jlink
           path: |
             build/jreleaser/assemble/umleditorStandalone/jlink/
 
-      - uses: actions/upload-artifact@v2
+      - name: Upload jpackage
+        uses: actions/upload-artifact@v3
         if: ${{ success() }}
         with:
           name: jpackage
