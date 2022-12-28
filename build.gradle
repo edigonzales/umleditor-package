@@ -28,42 +28,6 @@ task unzip(type: Copy, dependsOn: 'downloadBindist') {
     into file("${buildDir}/umleditor/")
 }
 
-
-/*
-graalvmNative {
-    toolchainDetection = false
-    binaries {
-        main {
-            imageName = 'ilimanager'
-            mainClass = 'ch.ehi.ilimanager.Main' 
-            debug = false 
-            verbose = true 
-            fallback = false 
-            //configurationFileDirectories.from(file("conf-dir-"+getOperatingSystemName()+"/")) // TODO: mit gui wieder nötig
-            configurationFileDirectories.from(file("conf-dir/"))
-
-            buildArgs.add('--enable-url-protocols=http,https') 
-                        
-            jvmArgs.add("-Djava.awt.headless=false")
-
-            useFatJar = true
-        }
-    }
-}
-
-distributions {
-    nativeImage {
-        contents {
-            from 'build/native/nativeCompile/'
-        }
-    }
-}
-
-nativeImageDistZip {
-    archiveName myArtifactId + '-' + APP_VERSION + "_" + buildNumber + '-' + getOperatingSystemName() + '-' + getArchitectureName() + ".zip"
-}
-*/
-
 jreleaser {
     gitRootSearch = true
     
@@ -131,6 +95,11 @@ jreleaser {
                 applicationPackage {
                     appName = "umleditor"
                     appVersion = "${APP_VERSION}"
+                }
+
+                linux {
+                    icon = 'icons/icon-umleditor-v2-128x128.png'
+                    types = ['deb']  
                 }
 
                 osx {
