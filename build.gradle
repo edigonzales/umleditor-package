@@ -79,7 +79,7 @@ jreleaser {
                     path = "${buildDir}/umleditor/umleditor-${APP_VERSION}.jar"
                 }
                 jars {
-                   pattern = "${buildDir}\\umleditor\\libs\\*.jar"
+                   pattern = "${buildDir}\\umleditor\\libs\\\*.jar"
                 }
 
 
