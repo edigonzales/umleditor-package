@@ -8,7 +8,6 @@ def APP_VERSION = "3.9.0"
 
 def myArtifactId = "umleditor"
 def buildNumber = System.env.GITHUB_RUN_NUMBER
-def os = org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.currentOperatingSystem; 
 
 repositories {
     mavenLocal()
@@ -116,7 +115,6 @@ jreleaser {
                     mainClass = "ch.ehi.umleditor.application.LauncherView"
 
                 }
-
             }
         }
     }
@@ -141,24 +139,4 @@ jreleaser {
     }
 }
 
-def getOperatingSystemName() {
-    def os = org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.currentOperatingSystem; 
-    def osName = os.getName().toLowerCase();
-    if (osName.contains("windows")) {
-        return "windows";
-    } else if (osName.contains("mac os x") || osName.contains("darwin") || osName.contains("osx")) {
-        return "osx";
-    } else if (osName.contains("linux")) {
-        return "linux";
-    } else {
-        // not strictly true
-        return "unix";
-    }
-}
-
-def getArchitectureName() {
-    def arch = org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.currentArchitecture; 
-    def archName = arch.getName().toLowerCase();
-    return archName;    
-}
 
