@@ -56,7 +56,7 @@ jreleaser {
 
     assemble {
         jlink {
-            app {
+            umleditor-standalone {
                 active = 'ALWAYS'
                 stereotype = 'DESKTOP'
                 imageName = "umleditor-${APP_VERSION}"
@@ -87,7 +87,7 @@ jreleaser {
         }
 
         jpackage {
-            umleditor {
+            umleditor-installer {
                 active = 'ALWAYS'
                 stereotype = 'DESKTOP'
                 jlink = "app"
@@ -120,7 +120,7 @@ jreleaser {
     }
 
     distributions {
-        appPackage {
+        umleditor-installer {
             distributionType = 'NATIVE_PACKAGE'
             stereotype = 'DESKTOP'
             artifact {
