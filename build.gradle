@@ -121,7 +121,7 @@ jreleaser {
 
     distributions {
         appPackage {
-            distributionType = 'JLINK'
+            distributionType = 'NATIVE_PACKAGE'
             stereotype = 'DESKTOP'
             artifact {
                 path = "./artifacts/umleditor-${APP_VERSION}-1_amd64.deb"
