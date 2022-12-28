@@ -61,7 +61,7 @@ jobs:
           name: jpackage
           path: |
             build/jreleaser/assemble/umleditorInstaller/jpackage/*.deb
-            build/jreleaser/assemble/umleditorInstaller/jpackage/*.pgk
+            build/jreleaser/assemble/umleditorInstaller/jpackage/*.pkg
             build/jreleaser/assemble/umleditorInstaller/jpackage/*.exe
 
   release:

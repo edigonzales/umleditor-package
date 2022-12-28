@@ -124,15 +124,15 @@ jreleaser {
             distributionType = 'NATIVE_PACKAGE'
             stereotype = 'DESKTOP'
             artifact {
-                path = "./artifacts/umleditor-${APP_VERSION}-1_amd64.deb"
+                path = "./build/jreleaser/assemble/umleditorInstaller/jpackage/umleditor-${APP_VERSION}-1_amd64.deb"
                 platform = 'linux'
             }
             artifact {
-                path = "./artifacts/umleditor-${APP_VERSION}.pkg"
+                path = "./build/jreleaser/assemble/umleditorInstaller/jpackage/umleditor-${APP_VERSION}.pkg"
                 platform = 'osx'
             }
             artifact {
-                path = "./artifacts/umleditor-${APP_VERSION}.exe"
+                path = "./build/jreleaser/assemble/umleditorInstaller/jpackage/umleditor-${APP_VERSION}.exe"
                 platform = 'windows'
             }
         }
