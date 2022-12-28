@@ -126,15 +126,15 @@ jreleaser {
             distributionType = 'BINARY'
             stereotype = 'DESKTOP'
             artifact {
-                path = "./artifacts/ilimanager-${APP_VERSION}_${buildNumber}-linux-x86-64.zip"
+                path = "./artifacts/umleditor-${APP_VERSION}-1_amd64.deb"
                 platform = 'linux'
             }
             artifact {
-                path = "./artifacts-native/ilimanager-${APP_VERSION}_${buildNumber}-osx-x86-64.zip"
+                path = "./artifacts/umleditor-${APP_VERSION}.pkg"
                 platform = 'osx'
             }
             artifact {
-                path = "./artifacts-native/ili2ilimanagergpkg-${APP_VERSION}_${buildNumber}-windows-x86-64.zip"
+                path = "./artifacts/umleditor-${APP_VERSION}-windows-x86-64.zip"
                 platform = 'windows'
             }
         }
