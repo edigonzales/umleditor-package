@@ -40,6 +40,17 @@ jobs:
           ./gradlew downloadBindist unzip
           ls -la build/umleditor/
 
+      - name: Create package
+        run: |
+          ./gradlew jreleaserAssemble -s
+          ls -la build/jreleaser/assemble/app/jlink/
+          ls -la build/jreleaser/assemble/umleditor/jpackage/
+
+      - uses: actions/upload-artifact@v2
+        if: ${{ success() }}
+        with:
+          name: artifacts
+          path: build/jreleaser/assemble/umleditor/jpackage/umleditor*.*
 
   # release:
   #   needs: [build]
