@@ -32,7 +32,7 @@ jreleaser {
     
     project {
         name = myArtifactId
-        description = 'umleditor.'
+        description = 'umleditor'
         website = 'http://blog.sogeo.services'
         authors = ['edigonzales']
         license = 'MIT'
@@ -57,7 +57,7 @@ jreleaser {
     assemble {
         jlink {
             app {
-                //active = 'ALWAYS'
+                active = 'ALWAYS'
                 stereotype = 'DESKTOP'
                 imageName = "umleditor-${APP_VERSION}"
 
@@ -88,7 +88,7 @@ jreleaser {
 
         jpackage {
             umleditor {
-                //active = 'ALWAYS'
+                active = 'ALWAYS'
                 stereotype = 'DESKTOP'
                 jlink = "app"
                 applicationPackage {
@@ -120,7 +120,7 @@ jreleaser {
     }
 
     distributions {
-        app {
+        appPackage {
             distributionType = 'BINARY'
             stereotype = 'DESKTOP'
             artifact {
