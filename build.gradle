@@ -107,6 +107,11 @@ jreleaser {
                     types = ['pkg']  
                 }
 
+                windows {
+                    icon = 'icons/icon-umleditor-v2-128x128.ico'
+                    types = ['exe']
+                }
+
                 java {
                     mainClass = "ch.ehi.umleditor.application.LauncherView"
 
