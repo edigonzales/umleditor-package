@@ -1,0 +1,193 @@
+plugins {
+    id 'application'
+    id "de.undercouch.download" version "5.3.0"
+    id 'org.jreleaser' version '1.3.1'
+}
+
+def APP_VERSION = "3.9.0"
+
+def myArtifactId = "umleditor"
+def buildNumber = System.env.GITHUB_RUN_NUMBER
+def os = org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.currentOperatingSystem; 
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url "https://jars.interlis.ch"
+    }
+}
+
+task downloadBindist(type: Download) {
+    src "https://jars.interlis.ch/ch/interlis/umleditor/${APP_VERSION}/umleditor-${APP_VERSION}-bindist.zip"
+    dest "$buildDir/dwnld/umleditor-${APP_VERSION}-bindist.zip"
+}
+
+task unzip(type: Copy, dependsOn: 'downloadBindist') {
+    from zipTree(file("$buildDir/dwnld/umleditor-${APP_VERSION}-bindist.zip"))
+    into file("${buildDir}/umleditor/")
+}
+
+
+/*
+graalvmNative {
+    toolchainDetection = false
+    binaries {
+        main {
+            imageName = 'ilimanager'
+            mainClass = 'ch.ehi.ilimanager.Main' 
+            debug = false 
+            verbose = true 
+            fallback = false 
+            //configurationFileDirectories.from(file("conf-dir-"+getOperatingSystemName()+"/")) // TODO: mit gui wieder nötig
+            configurationFileDirectories.from(file("conf-dir/"))
+
+            buildArgs.add('--enable-url-protocols=http,https') 
+                        
+            jvmArgs.add("-Djava.awt.headless=false")
+
+            useFatJar = true
+        }
+    }
+}
+
+distributions {
+    nativeImage {
+        contents {
+            from 'build/native/nativeCompile/'
+        }
+    }
+}
+
+nativeImageDistZip {
+    archiveName myArtifactId + '-' + APP_VERSION + "_" + buildNumber + '-' + getOperatingSystemName() + '-' + getArchitectureName() + ".zip"
+}
+*/
+
+jreleaser {
+    gitRootSearch = true
+    
+    project {
+        name = myArtifactId
+        description = 'umleditor.'
+        website = 'http://blog.sogeo.services'
+        authors = ['edigonzales']
+        license = 'MIT'
+        docsUrl = 'https://github.com/edigonzales/umleditor-package'
+        copyright = '2022 Stefan Ziegler'
+        version = APP_VERSION + "_" + buildNumber
+        versionPattern = 'CUSTOM'
+        java {
+            groupId = 'ch.interlis'
+        }
+        vendor = "edigonzales"
+    }
+
+    release {
+        github {
+            repoOwner = 'edigonzales'
+            overwrite = true
+            apiEndpoint = 'https://api.github.com'
+        }
+    }
+
+    assemble {
+        jlink {
+            app {
+                active = 'ALWAYS'
+                stereotype = 'DESKTOP'
+                imageName = "umleditor-${APP_VERSION}"
+
+                jdeps {
+                    enabled = true
+                    multiRelease = 'base'
+                    ignoreMissingDeps = true
+
+                }
+                /*
+                arg('-recursive')
+                arg('--ignore-missing-deps')
+                arg('--print-module-deps')
+                */
+                arg('--strip-debug')
+                arg('--no-man-pages')
+                arg('--no-header-files')    
+                mainJar {
+                    path = "${buildDir}/umleditor/umleditor-${APP_VERSION}.jar"
+                }
+                jars {
+                   pattern = "${buildDir}/umleditor/libs/*.jar"
+                }
+
+
+            }
+        }
+
+        jpackage {
+            umleditor {
+                active = 'ALWAYS'
+                stereotype = 'DESKTOP'
+                jlink = "app"
+                applicationPackage {
+                    appName = "umleditor"
+                    appVersion = "${APP_VERSION}"
+                }
+
+                osx {
+                    icon = 'icons/icon-umleditor-v2-128x128.icns'
+                    types = ['pkg']  
+                }
+
+                java {
+                    mainClass = "ch.ehi.umleditor.application.LauncherView"
+
+                }
+
+            }
+        }
+
+    }
+
+/*
+    distributions {
+        appNative {
+            distributionType = 'NATIVE_IMAGE'
+            stereotype = 'CLI'
+            artifact {
+                path = "./artifacts-native/ilimanager-${APP_VERSION}_${buildNumber}-linux-x86-64.zip"
+                platform = 'linux'
+            }
+            artifact {
+                path = "./artifacts-native/ilimanager-${APP_VERSION}_${buildNumber}-osx-x86-64.zip"
+                platform = 'osx'
+            }
+            artifact {
+                path = "./artifacts-native/ili2ilimanagergpkg-${APP_VERSION}_${buildNumber}-windows-x86-64.zip"
+                platform = 'windows'
+            }
+        }
+    }
+*/
+}
+
+def getOperatingSystemName() {
+    def os = org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.currentOperatingSystem; 
+    def osName = os.getName().toLowerCase();
+    if (osName.contains("windows")) {
+        return "windows";
+    } else if (osName.contains("mac os x") || osName.contains("darwin") || osName.contains("osx")) {
+        return "osx";
+    } else if (osName.contains("linux")) {
+        return "linux";
+    } else {
+        // not strictly true
+        return "unix";
+    }
+}
+
+def getArchitectureName() {
+    def arch = org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.currentArchitecture; 
+    def archName = arch.getName().toLowerCase();
+    return archName;    
+}
+
