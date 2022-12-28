@@ -45,11 +45,22 @@ jobs:
         run: |
           ./gradlew jreleaserAssemble -s
 
+      - name: Upload jlink
+        uses: actions/upload-artifact@v3
+        with:
+          retention-days: 1
+          name: jlink
+          path: |
+            build/jreleaser/assemble/umleditorStandalone/jlink/
+
       - uses: actions/upload-artifact@v2
         if: ${{ success() }}
         with:
-          name: artifacts
-          path: build/jreleaser/assemble/umleditorInstaller/jpackage/umleditor*.*
+          name: jpackage
+          path: |
+            build/jreleaser/assemble/umleditorInstaller/jpackage/*.deb
+            build/jreleaser/assemble/umleditorInstaller/jpackage/*.pgk
+            build/jreleaser/assemble/umleditorInstaller/jpackage/*.exe
 
   release:
     needs: [build]
