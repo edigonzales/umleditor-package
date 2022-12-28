@@ -66,7 +66,6 @@ jreleaser {
                     enabled = true
                     multiRelease = 'base'
                     ignoreMissingDeps = true
-
                 }
                 /*
                 arg('-recursive')
@@ -122,13 +121,12 @@ jreleaser {
 
     }
 
-/*
     distributions {
         appNative {
-            distributionType = 'NATIVE_IMAGE'
-            stereotype = 'CLI'
+            distributionType = 'BINARY'
+            stereotype = 'DESKTOP'
             artifact {
-                path = "./artifacts-native/ilimanager-${APP_VERSION}_${buildNumber}-linux-x86-64.zip"
+                path = "./artifacts/ilimanager-${APP_VERSION}_${buildNumber}-linux-x86-64.zip"
                 platform = 'linux'
             }
             artifact {
@@ -141,7 +139,6 @@ jreleaser {
             }
         }
     }
-*/
 }
 
 def getOperatingSystemName() {
