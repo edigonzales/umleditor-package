@@ -90,7 +90,7 @@ jreleaser {
             umleditor-installer {
                 active = 'ALWAYS'
                 stereotype = 'DESKTOP'
-                jlink = "app"
+                jlink = "umleditor-standalone"
                 applicationPackage {
                     appName = "umleditor"
                     appVersion = "${APP_VERSION}"
