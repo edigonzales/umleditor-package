@@ -49,7 +49,7 @@ jobs:
         if: ${{ success() }}
         with:
           name: artifacts
-          path: build/jreleaser/assemble/umleditor/jpackage/umleditor*.*
+          path: build/jreleaser/assemble/umleditorStandalone/jpackage/umleditor*.*
 
   release:
     needs: [build]
