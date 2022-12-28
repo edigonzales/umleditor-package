@@ -79,7 +79,7 @@ jreleaser {
                     path = "${buildDir}/umleditor/umleditor-${APP_VERSION}.jar"
                 }
                 jars {
-                   pattern = "${buildDir}/umleditor/libs/*.jar"
+                   pattern = "${buildDir}\\umleditor\\libs\\*.jar"
                 }
 
 
@@ -134,7 +134,7 @@ jreleaser {
                 platform = 'osx'
             }
             artifact {
-                path = "./artifacts/umleditor-${APP_VERSION}-windows-x86-64.zip"
+                path = "./artifacts/umleditor-${APP_VERSION}.exe"
                 platform = 'windows'
             }
         }
