@@ -44,9 +44,6 @@ jobs:
       - name: Create package
         run: |
           ./gradlew jreleaserAssemble -s
-          ls -la build/jreleaser/assemble/app/jlink/
-          ls -la build/jreleaser/assemble/umleditor/jpackage/
-        shell: bash
 
       - uses: actions/upload-artifact@v2
         if: ${{ success() }}
