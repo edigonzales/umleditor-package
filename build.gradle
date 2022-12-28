@@ -121,7 +121,7 @@ jreleaser {
 
     distributions {
         appPackage {
-            distributionType = 'BINARY'
+            distributionType = 'JLINK'
             stereotype = 'DESKTOP'
             artifact {
                 path = "./artifacts/umleditor-${APP_VERSION}-1_amd64.deb"
@@ -138,5 +138,21 @@ jreleaser {
         }
     }
 }
+
+/*
+gradle.taskGraph.whenReady {taskGraph ->
+    println "Found task graph: " + taskGraph
+    println "Found " + taskGraph.allTasks.size() + " tasks."
+    taskGraph.allTasks.forEach { task ->
+        println()
+        println("----- " + task + " -----")
+        println("depends on tasks: " + task.dependsOn)
+        println("inputs: ")
+        task.inputs.getFiles().getFiles().collect { f -> println(" - " + f)}
+        println("outputs: ")
+        task.outputs.getFiles().getFiles().collect { f -> println(" + " + f)}
+    }
+}
+*/
 
 
