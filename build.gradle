@@ -79,10 +79,11 @@ jreleaser {
                     path = "${buildDir}/umleditor/umleditor-${APP_VERSION}.jar"
                 }
                 jars {
-                   pattern = 'build/umleditor/**/*.jar'
+                    // Das machte unter Windows Probleme wegen des Asterix.
+                    // Entweder war ${buildDir} oder das fehlende ** schuld.
+                    // Anstelle von ** habe ich 'libs' verwendet.
+                    pattern = 'build/umleditor/**/*.jar'
                 }
-
-
             }
         }
 
@@ -118,11 +119,10 @@ jreleaser {
 
             }
         }
-
     }
 
     distributions {
-        appNative {
+        app {
             distributionType = 'BINARY'
             stereotype = 'DESKTOP'
             artifact {
