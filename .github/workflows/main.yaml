@@ -72,13 +72,23 @@ jobs:
           ref: ${{ steps.head.outputs.content }}
           fetch-depth: 0
 
-      - name: 'Download all build artifacts'
-        uses: actions/download-artifact@v2
+      - name: Download jlink
+        uses: actions/download-artifact@v3
+        with:
+          name: jlink
+          path: build/jreleaser/assemble/umleditorStandalone/jlink
+
+      - name: Download jpackage
+        uses: actions/download-artifact@v3
+        with:
+          name: jpackage
+          path: build/jreleaser/assemble/umleditorInstaller/jpackage
 
       - name: 'List artifacts'
         run: |
-          ls -la /home/runner/work/umleditor-package/umleditor-package/artifacts
-          ls -la /home/runner/work/umleditor-package/umleditor-package/
+          ls -la /home/runner/work/umleditor-package/umleditor-package/build/jreleaser/assemble/umleditorStandalone/jlink
+          ls -la /home/runner/work/umleditor-package/umleditor-package/build/jreleaser/assemble/umleditorInstaller/jpackage
+          
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
